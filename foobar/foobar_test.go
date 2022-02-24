@@ -38,3 +38,14 @@ func TestFooBarGiven3WantsStringFoo(t *testing.T) {
 		t.Errorf("given %d wants %q but got %q\n", given, wants, result)
 	}
 }
+
+func TestFooBarGiven4WantsString4(t *testing.T) {
+	given := 4
+	wants := "4"
+
+	result := foobar.Say(given)
+
+	if wants != result {
+		t.Errorf("given %d wants %q but got %q\n", given, wants, result)
+	}
+}
