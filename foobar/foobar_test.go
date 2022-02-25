@@ -59,3 +59,39 @@ func TestFooBarGiven5WantsStringBar(t *testing.T) {
 		t.Errorf("given %d wants %q but got %q\n", given, wants, result)
 	}
 }
+
+type counter int
+
+func (c *counter) inc() {
+	*c++
+}
+
+type fakeIntner struct {
+	count counter
+	seq   []int
+}
+
+func (f *fakeIntner) Intn(n int) int {
+	defer f.count.inc()
+	return f.seq[f.count]
+}
+
+func TestRamdomSay(t *testing.T) {
+	// src := rand.NewSource(time.Now().Unix())
+	// r := rand.New(src)
+
+	// given := []int{0, 1, 2, 4}
+	// intn := &fakeIntner{count: 0, seq: given}
+
+	var f foobar.IntnFunc = func(i int) int {
+		return 0
+	}
+
+	get := foobar.RandomSay(f)
+
+	wants := "1-2-Foo-Bar"
+
+	if wants != get {
+		t.Errorf("given random wants 1 but got %q\n", get)
+	}
+}
